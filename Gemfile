@@ -28,7 +28,7 @@ gem 'jbuilder', '~> 2.7'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
 
-#Use Haml templates
+# Use Haml templates
 gem 'haml-rails', '~>2.0.1'
 
 group :development, :test do
