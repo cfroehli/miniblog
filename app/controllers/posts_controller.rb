@@ -3,7 +3,7 @@ class PostsController < ApplicationController
   respond_to :html, :json
 
   def index
-    @posts = Post.all
+    @posts = Post.order(updated_at: :desc)
     respond_with @posts
   end
 
