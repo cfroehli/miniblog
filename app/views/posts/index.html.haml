@@ -3,13 +3,14 @@
     .card-header
       At
       = post.updated_at.to_s(:update_timestamp)
-      = current_user
+      %i.fa.fa-user
+      = current_user.username
       said:
     .card-body
       .card-text
         = post.content.truncate(40)
       .card-link
-        %br
+        %br/
         .row
           .col
             = link_to post do
@@ -23,4 +24,4 @@
             = link_to post, method: :delete, data: { confirm: 'Are you sure?' } do
               %i.far.fa-trash-alt
               Delete post
-  %br
+  %br/
