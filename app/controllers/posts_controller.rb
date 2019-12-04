@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :find_current_user_post, only: [:edit, :update, :destroy]
+  before_action :find_post, only: [:show]
   respond_to :html, :json
 
   def index
@@ -12,32 +13,36 @@ class PostsController < ApplicationController
   end
 
   def new
-    @post = Post.new
+    @post = current_user.posts.new
     respond_with @post
   end
 
-  def edit
-  end
-
   def create
-    @post = Post.new(post_params)
-    flash[:notice] = 'Post was successfully created.' if @post.save
+    @post = current_user.posts.new(post_params)
+    flash[:success] = 'Post was successfully created.' if @post.save
     respond_with @post
   end
 
   def update
-    flash[:notice] = 'Post was successfully updated.' if @post.update(post_params)
+    flash[:success] = 'Post was successfully updated.' if @post.update(post_params)
     respond_with @post
   end
 
   def destroy
-    flash[:notice] = 'Post was successfully destroyed.' if @post.destroy
+    flash[:success] = 'Post was successfully destroyed.' if @post.destroy
     respond_with @post
   end
 
   private
-    def set_post
+    def find_post
       @post = Post.find(params[:id])
+    end
+
+    def find_current_user_post
+      @post = current_user.posts.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      flash[:danger] = "User #{current_user.username} does not own the post [#{params[:id]}]."
+      redirect_to :action => 'index'
     end
 
     def post_params
