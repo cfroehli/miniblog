@@ -1,28 +1,26 @@
-%h1 Miniblog home page
-
-.card
-  .card-body
-    .card-title Latest content
-    .card-text
-      %ul.list-group.list-group-flush
-      - @posts.each do |post|
-        %li.list-group-item
-          .row
-            .col-9
-              = post.content.truncate(40)
-            .col-sm-auto
-              = link_to post do
-                %i.fa.fa-eye
-            .col-sm-auto
-              = link_to edit_post_path(post) do
-                %i.fa.fa-edit
-            .col-sm-auto
-              = link_to post, method: :delete, data: { confirm: 'Are you sure?' } do
-                %i.far.fa-trash-alt
-
-      %br
-
+- @posts.each do |post|
+  .card
+    .card-header
+      At
+      = post.updated_at.to_s(:update_timestamp)
+      = current_user
+      said:
+    .card-body
+      .card-text
+        = post.content.truncate(40)
       .card-link
-        = link_to new_post_path do
-          %i.fas.fa-plus
-          Post new content
+        %br
+        .row
+          .col
+            = link_to post do
+              %i.fa.fa-eye
+              View full post
+          .col
+            = link_to edit_post_path(post) do
+              %i.fa.fa-edit
+              Edit post
+          .col
+            = link_to post, method: :delete, data: { confirm: 'Are you sure?' } do
+              %i.far.fa-trash-alt
+              Delete post
+  %br

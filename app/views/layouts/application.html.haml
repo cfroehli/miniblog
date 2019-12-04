@@ -9,6 +9,29 @@
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
   %body
     .container
+      %nav.navbar.navbar-expand-lg.navbar-light.bg-light
+        %span.navbar-brand.mb-0.h1 Miniblog
+        %button.navbar-toggler{:type => "button",
+                               :data => {:toggle => "collapse",
+                                         :target => "#navbarNav"},
+                               :aria => {:controls => "navbarNav",
+                                         :expanded => "false",
+                                         :label => "Toggle navigation"}}
+          %span.navbar-toggler-icon
+        .navbar-collapse.collapse#navbarNav
+          .navbar-nav
+            = link_to posts_path, :class => "nav-item nav-link" do
+              %i.fa.fa-home
+              Home
+            - if user_signed_in?
+              = link_to new_post_path, :class => "nav-item nav-link" do
+                %i.fas.fa-plus
+                Post new content
+              = link_to destroy_user_session_path, :class => "nav-item nav-link", :method => :delete do
+                %i.fas.fa-sign-out-alt
+                Logout
+
       %p.notice= notice
       %p.alert= alert
+
       = yield
