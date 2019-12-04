@@ -3,19 +3,20 @@
     At
     = @post.updated_at.to_s(:update_timestamp)
     %i.fa.fa-user
-    = current_user.username
+    = @post.user.username
     said:
   .card-body
     .card-text
       = @post.content
-    .card-link
-      %br/
-      .row
-        .col
-          = link_to edit_post_path(@post) do
-            %i.fa.fa-edit
-            Edit post
-        .col
-          = link_to @post, method: :delete, data: { confirm: 'Are you sure?' } do
-            %i.far.fa-trash-alt
-            Delete post
+    - if current_user == @post.user
+      .card-link
+        %br/
+        .row
+          .col
+            = link_to edit_post_path(@post) do
+              %i.fa.fa-edit
+              Edit post
+          .col
+            = link_to @post, method: :delete, data: { confirm: 'Are you sure?' } do
+              %i.far.fa-trash-alt
+              Delete post
