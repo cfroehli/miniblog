@@ -8,6 +8,6 @@
 
   .form-group
     = f.label :content
-    = f.text_area :content, :rows => 15, :class => 'form-control'
+    = f.text_area :content, {:rows => 15, :id => 'post-content-area', :class => 'form-control'}
     %br
     = f.button 'Submit', :class => 'btn btn-primary'
