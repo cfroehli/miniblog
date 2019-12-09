@@ -2,8 +2,9 @@
   .card-header
     At
     = @post.updated_at.to_s(:update_timestamp)
-    %i.fa.fa-user
-    = @post.user.username
+    = link_to user_path(@post.user) do
+      %i.fa.fa-user
+      = @post.user.username
     said:
   .card-body
     .card-text
