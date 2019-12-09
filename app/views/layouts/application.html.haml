@@ -20,14 +20,20 @@
           %span.navbar-toggler-icon
         .navbar-collapse.collapse#navbarNav
           .navbar-nav
-            = link_to posts_path, :class => "nav-item nav-link" do
+            = link_to posts_path, class: 'nav-item nav-link' do
               %i.fa.fa-home
               Home
             - if user_signed_in?
-              = link_to new_post_path, :class => "nav-item nav-link" do
+              = link_to users_path, class: 'nav-item nav-link' do
+                %i.fas.fa-users
+                Users
+              = link_to new_post_path, class: 'nav-item nav-link' do
                 %i.fas.fa-plus
                 Post new content
-              = link_to destroy_user_session_path, :class => "nav-item nav-link", :method => :delete do
+              = link_to edit_user_registration_path, class: 'nav-item nav-link' do
+                %i.fas.fa-user-cog
+                User settings
+              = link_to destroy_user_session_path, class: 'nav-item nav-link', method: :delete do
                 %i.fas.fa-sign-out-alt
                 Logout
 
