@@ -1,7 +1,7 @@
 !!!
 %html
   %head
-    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %meta{content: 'text/html; charset=UTF-8', 'http-equiv': 'Content-Type'}/
     %title Miniblog
     = csrf_meta_tags
     = csp_meta_tag
@@ -11,12 +11,12 @@
     .container
       %nav.navbar.navbar-expand-lg.navbar-light.bg-light
         %span.navbar-brand.mb-0.h1 Miniblog
-        %button.navbar-toggler{:type => "button",
-                               :data => {:toggle => "collapse",
-                                         :target => "#navbarNav"},
-                               :aria => {:controls => "navbarNav",
-                                         :expanded => "false",
-                                         :label => "Toggle navigation"}}
+        %button.navbar-toggler{type: 'button',
+                               data: {toggle: 'collapse',
+                                      target: '#navbarNav'},
+                               aria: {controls: 'navbarNav',
+                                      expanded: 'false',
+                                      label: 'Toggle navigation'}}
           %span.navbar-toggler-icon
         .navbar-collapse.collapse#navbarNav
           .navbar-nav
@@ -40,13 +40,13 @@
       %br/
 
       - flash.each do |flash_type, flash_content|
-        .alert{:class => "alert-#{flash_type} alert-dismissible fade show",
-               :role => "alert"}
+        .alert{class: "alert-#{flash_type} alert-dismissible fade show",
+               role: 'alert'}
           = flash_content
-          %button.close{:type => "button",
-                        :data => {:dismiss => "alert"},
-                        :aria => {:label => "Close"}}
-            %span{:aria => {:hidden => "true"}}
+          %button.close{type: 'button',
+                        'data-dismiss': 'alert',
+                        'aria-label': 'Close'}
+            %span{'aria-hidden': 'true'}
               &times;
 
       = yield

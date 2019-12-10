@@ -1,28 +1,20 @@
-.slides{:style => 'background-color: grey;'}
-  #usersCarousel.carousel.slide{:data => { :ride => 'carousel'}}
+.slides{style: 'background-color: grey;'}
+  #usersCarousel.carousel.slide{'data-ride': 'carousel'}
     .carousel-inner
       - @users.each do |user|
-        - if user == @users.first
-          .carousel-item.text-center.active
-            %h1
-              %i.fas.fa-user.fa-10x
-            .carousel-caption.d-none.d-md-block
-              =link_to user_path(user) do
-                %h1= user.username
+        .carousel-item.text-center{class: ('active' if user == @users.first)}
+          %h1
+            %i.fas.fa-user.fa-10x
+          .carousel-caption.d-none.d-md-block
+            =link_to user_path(user) do
+              %h1= user.username
+            - if !user.profile.blank?
               %h2= user.profile
+            - if !user.blog_url.blank?
               %p= user.blog_url
-        - else
-          .carousel-item.text-center
-            %h1
-              %i.fas.fa-user.fa-10x
-            .carousel-caption.d-none.d-md-block
-              = link_to user_path(user) do
-                %h1= user.username
-              %h2= user.profile
-              %p= user.blog_url
-    %a.carousel-control-prev{:href => '#usersCarousel', :role => 'button', :data => {:slide => 'prev'}}
-      %span.carousel-control-prev-icon{:aria => {:hidden => 'true'}}
+    %a.carousel-control-prev{href: '#usersCarousel', role: 'button', 'data-slide': 'prev'}
+      %span.carousel-control-prev-icon{'aria-hidden': 'true'}
       %span.sr-only Previous
-    %a.carousel-control-next{:href => '#usersCarousel', :role => 'button', :data => {:slide => 'next'}}
-      %span.carousel-control-next-icon{:aria => {:hidden => 'true'}}
+    %a.carousel-control-next{href: '#usersCarousel', role: 'button', 'data-slide': 'next'}
+      %span.carousel-control-next-icon{'aria-hidden': 'true'}
       %span.sr-only Next
