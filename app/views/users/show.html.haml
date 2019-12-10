@@ -5,13 +5,13 @@
     's profile
   .card-body
     .card-text
-      = @user.profile
-    - if !@user.blog_url.blank?
-      %br/
-      .card-link
-        = link_to @user.blog_url do
-          %i.fas.fa-blog
-          = @user.blog_url
+      = @user.profile.blank? ? "#{@user.username} didn't set any profile information yet..." : @user.profile
+      - if !@user.blog_url.blank?
+        %br/
+        .card-link
+          = link_to @user.blog_url do
+            %i.fas.fa-blog
+            = @user.blog_url
 
 %br/
 
