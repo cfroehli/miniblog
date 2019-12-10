@@ -1,29 +1,35 @@
-- @posts.each do |post|
-  .card
-    .card-header
-      At
-      = post.updated_at.to_s(:update_timestamp)
-      = link_to user_path(post.user) do
-        %i.fa.fa-user
-        = post.user.username
-      said:
-    .card-body
-      .card-text
-        = headline(post)
-      .card-link
-        %br/
-        .row
-          .col
-            = link_to post do
-              %i.fa.fa-eye
-              View full post
-          - if current_user == post.user
+- if @posts.empty?
+  .h3.text-center
+    No post available yet :
+    = link_to new_post_path do
+      Be the first to say something
+- else
+  - @posts.each do |post|
+    .card
+      .card-header
+        At
+        = post.updated_at.to_s(:update_timestamp)
+        = link_to user_path(post.user) do
+          %i.fa.fa-user
+          = post.user.username
+        said:
+      .card-body
+        .card-text
+          = headline(post)
+        .card-link
+          %br/
+          .row
             .col
-              = link_to edit_post_path(post) do
-                %i.fa.fa-edit
-                Edit post
-            .col
-              = link_to post, method: :delete, data: { confirm: 'Are you sure?' } do
-                %i.far.fa-trash-alt
-                Delete post
-  %br/
+              = link_to post do
+                %i.fa.fa-eye
+                View full post
+            - if current_user == post.user
+              .col
+                = link_to edit_post_path(post) do
+                  %i.fa.fa-edit
+                  Edit post
+              .col
+                = link_to post, method: :delete, data: { confirm: 'Are you sure?' } do
+                  %i.far.fa-trash-alt
+                  Delete post
+    %br/
