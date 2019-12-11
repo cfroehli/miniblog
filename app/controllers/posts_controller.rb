@@ -4,7 +4,7 @@ class PostsController < ApplicationController
   respond_to :html, :json
 
   def index
-    @posts = Post.order(updated_at: :desc)
+    @posts = ordered_posts(Post)
     respond_with @posts
   end
 
@@ -33,6 +33,11 @@ class PostsController < ApplicationController
     respond_with @post
   end
 
+  def followed
+    @posts = ordered_posts(Post.where(:user => current_user.followees))
+    render :index
+  end
+
   private
     def find_post
       @post = Post.find(params[:id])
@@ -43,6 +48,10 @@ class PostsController < ApplicationController
     rescue ActiveRecord::RecordNotFound
       flash[:danger] = "User #{current_user.username} does not own the post [#{params[:id]}]."
       redirect_to :action => 'index'
+    end
+
+    def ordered_posts(posts)
+      posts.joins(:user).select('posts.*, users.username as user_name').order(updated_at: :desc)
     end
 
     def post_params

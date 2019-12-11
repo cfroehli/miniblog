@@ -3,6 +3,15 @@
     %i.fa.fa-user
     = @user.username
     's profile
+    - if current_user != @user
+      - if current_user.followees.pluck(:id).include? @user.id
+        = link_to follow_path(id: @user.id), method: :delete do
+          %i.fas.fa-user-minus
+          Unfollow
+      - else
+        = link_to follows_path(id: @user.id), method: :post do
+          %i.fas.fa-user-plus
+          Follow
   .card-body
     .card-text
       = @user.profile.blank? ? "#{@user.username} didn't set any profile information yet..." : @user.profile
@@ -15,4 +24,20 @@
 
 %br/
 
-[TODO: list user posts here]
+.h3
+  = @user.followers.count
+  Followers
+- @user.followers.each do |follower|
+  = follower.username
+
+%hr/
+
+.h3
+  = @user.followees.count
+  Followees
+- @user.followees.each do |followee|
+  = followee.username
+
+%br/
+
+[TODO: maybe list user posts here, ...]

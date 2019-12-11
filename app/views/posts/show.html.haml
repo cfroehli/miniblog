@@ -9,10 +9,10 @@
   .card-body
     .card-text
       = @post.content
-    - if current_user == @post.user
-      .card-link
-        %br/
-        .row
+    .card-link
+      %br/
+      .row
+        - if current_user == @post.user
           .col
             = link_to edit_post_path(@post) do
               %i.fa.fa-edit
@@ -21,3 +21,13 @@
             = link_to @post, method: :delete, data: { confirm: 'Are you sure?' } do
               %i.far.fa-trash-alt
               Delete post
+        - else
+          .col
+            - if current_user.followees.pluck(:id).include? @post.user_id
+              = link_to follow_path(id: @post.user_id), method: :delete do
+                %i.fas.fa-user-minus
+                Unfollow
+            - else
+              = link_to follows_path(id: @post.user_id), method: :post do
+                %i.fas.fa-user-plus
+                Follow

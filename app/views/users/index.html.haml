@@ -1,17 +1,31 @@
 .slides{style: 'background-color: grey;'}
   #usersCarousel.carousel.slide{'data-ride': 'carousel'}
     .carousel-inner
+      - followees_ids = current_user.followees.pluck(:id)
       - @users.each do |user|
         .carousel-item.text-center{class: ('active' if user == @users.first)}
           %h1
             %i.fas.fa-user.fa-10x
           .carousel-caption.d-none.d-md-block
-            =link_to user_path(user) do
+            = link_to user_path(user.id) do
               %h1= user.username
+            - if current_user != user
+              - if followees_ids.include? user.id
+                = link_to follow_path(id: user.id), method: :delete do
+                  %i.fas.fa-user-minus
+                  Unfollow
+              - else
+                = link_to follows_path(id: user.id), method: :post do
+                  %i.fas.fa-user-plus
+                  Follow
             - if !user.profile.blank?
               %h2= user.profile
             - if !user.blog_url.blank?
-              %p= user.blog_url
+              %p
+                = link_to user.blog_url do
+                  %i.fas.fa-blog
+                  = user.blog_url
+
     %a.carousel-control-prev{href: '#usersCarousel', role: 'button', 'data-slide': 'prev'}
       %span.carousel-control-prev-icon{'aria-hidden': 'true'}
       %span.sr-only Previous
