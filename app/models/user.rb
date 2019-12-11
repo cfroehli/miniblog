@@ -10,6 +10,12 @@ class User < ApplicationRecord
 
   has_many :posts, dependent: :destroy
 
+  has_many :followers_link, class_name: 'Follow', foreign_key: 'followee_id'
+  has_many :followers, :through => :followers_link
+
+  has_many :followees_link, class_name: 'Follow', foreign_key: 'follower_id'
+  has_many :followees, :through => :followees_link
+
   attr_writer :login
 
   def login

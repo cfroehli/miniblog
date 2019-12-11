@@ -27,6 +27,9 @@
               = link_to users_path, class: 'nav-item nav-link' do
                 %i.fas.fa-users
                 Users
+              = link_to followed_posts_path, class: 'nav-item nav-link' do
+                %i.fas.fa-broadcast-tower
+                Followed
               = link_to new_post_path, class: 'nav-item nav-link' do
                 %i.fas.fa-plus
                 Post new content

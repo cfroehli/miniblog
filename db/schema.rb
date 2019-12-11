@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_06_062336) do
+ActiveRecord::Schema.define(version: 2019_12_10_041533) do
+
+  create_table "follows", force: :cascade do |t|
+    t.integer "follower_id"
+    t.integer "followee_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["followee_id"], name: "index_follows_on_followee_id"
+    t.index ["follower_id"], name: "index_follows_on_follower_id"
+  end
 
   create_table "posts", force: :cascade do |t|
     t.text "content"
@@ -36,5 +45,7 @@ ActiveRecord::Schema.define(version: 2019_12_06_062336) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "follows", "users", column: "followee_id"
+  add_foreign_key "follows", "users", column: "follower_id"
   add_foreign_key "posts", "users"
 end
