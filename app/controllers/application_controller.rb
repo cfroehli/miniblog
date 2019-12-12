@@ -10,4 +10,13 @@ class ApplicationController < ActionController::Base
     added_attrs += [ :profile, :blog_url ]
     devise_parameter_sanitizer.permit :account_update, keys: added_attrs
   end
+
+  private
+    def find_user
+      @user = User.find(params[:id])
+    end
+
+    def find_post
+      @post = Post.find(params[:id])
+    end
 end

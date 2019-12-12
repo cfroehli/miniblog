@@ -2,7 +2,7 @@
   #usersCarousel.carousel.slide{'data-ride': 'carousel'}
     .carousel-inner
       - followees_ids = current_user.followees.pluck(:id)
-      - @users.each do |user|
+      - @users.order(:username).each do |user|
         .carousel-item.text-center{class: ('active' if user == @users.first)}
           %h1
             %i.fas.fa-user.fa-10x

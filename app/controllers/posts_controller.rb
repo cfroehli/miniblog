@@ -4,7 +4,7 @@ class PostsController < ApplicationController
   respond_to :html, :json
 
   def index
-    @posts = ordered_posts(Post)
+    @posts = with_username(Post.joins(:user))
     respond_with @posts
   end
 
@@ -34,15 +34,16 @@ class PostsController < ApplicationController
   end
 
   def followed
-    @posts = ordered_posts(Post.where(:user => current_user.followees))
+    @posts = with_username(current_user.followed_posts)
+    render :index
+  end
+
+  def liked
+    @posts = with_username(current_user.liked_posts.joins(:user))
     render :index
   end
 
   private
-    def find_post
-      @post = Post.find(params[:id])
-    end
-
     def find_current_user_post
       @post = current_user.posts.find(params[:id])
     rescue ActiveRecord::RecordNotFound
@@ -50,11 +51,11 @@ class PostsController < ApplicationController
       redirect_to :action => 'index'
     end
 
-    def ordered_posts(posts)
-      posts.joins(:user).select('posts.*, users.username as user_name').order(updated_at: :desc)
-    end
-
     def post_params
       params.require(:post).permit(:content)
+    end
+
+    def with_username(posts)
+      posts.select('posts.*, users.username as user_name')
     end
 end
