@@ -11,10 +11,15 @@ class User < ApplicationRecord
   has_many :posts, dependent: :destroy
 
   has_many :followers_link, class_name: 'Follow', foreign_key: 'followee_id'
-  has_many :followers, :through => :followers_link
+  has_many :followers, through: :followers_link
 
   has_many :followees_link, class_name: 'Follow', foreign_key: 'follower_id'
-  has_many :followees, :through => :followees_link
+  has_many :followees, through: :followees_link
+
+  has_many :followed_posts, through: :followees, source: :posts
+
+  has_many :likes
+  has_many :liked_posts, through: :likes, source: :post
 
   attr_writer :login
 
@@ -25,7 +30,7 @@ class User < ApplicationRecord
   def self.find_first_by_auth_conditions(warden_conditions)
     conditions = warden_conditions.dup
     if login = conditions.delete(:login)
-      where(conditions).where(["lower(username) = :value OR lower(email) = :value", { :value => login.downcase }]).first
+      where(conditions).where(["lower(username) = :value OR lower(email) = :value", { value: login.downcase }]).first
     else
       if conditions[:username].nil?
         where(conditions).first

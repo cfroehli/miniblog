@@ -2,21 +2,29 @@
   .h3.text-center
     - if current_page? followed_posts_path
       You're not following anyone at the moment
+    - elsif current_page? linked_posts_path
+      You don't have liked any post yet
     - else
       No post available yet :
       = link_to new_post_path do
         Be the first to say something
 - else
   - followees_ids = current_user.followees.pluck(:id)
-  - @posts.each do |post|
+  - liked_posts_ids = current_user.liked_posts.pluck(:id)
+  - @posts.order(updated_at: :desc).each do |post|
     .card
       .card-header
-        At
-        = post.updated_at.to_s(:update_timestamp)
-        = link_to user_path(post.user_id) do
-          %i.fa.fa-user
-          = post.user_name
-        said:
+        .row
+          .col-sm-8
+            At
+            = post.updated_at.to_s(:update_timestamp)
+            = link_to user_path(post.user_id) do
+              %i.fa.fa-user
+              = post.user_name
+            said:
+          .col-sm-4
+            = post.likes.size
+            %i.far.fa-heart
       .card-body
         .card-text
           = headline(post)
@@ -37,6 +45,11 @@
                   %i.far.fa-trash-alt
                   Delete post
             - else
+              .col
+                - if !liked_posts_ids.include? post.id
+                  = link_to likes_path(id: post.id), method: :post do
+                    %i.far.fa-thumbs-up
+                    +1
               .col
                 - if followees_ids.include? post.user_id
                   = link_to follow_path(id: post.user_id), method: :delete do

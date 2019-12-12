@@ -1,11 +1,16 @@
 .card
   .card-header
-    At
-    = @post.updated_at.to_s(:update_timestamp)
-    = link_to user_path(@post.user) do
-      %i.fa.fa-user
-      = @post.user.username
-    said:
+    .row
+      .col-sm-8
+        At
+        = @post.updated_at.to_s(:update_timestamp)
+        = link_to user_path(@post.user) do
+          %i.fa.fa-user
+          = @post.user.username
+        said:
+      .col-sm-4
+        = @post.likes.size
+        %i.far.fa-heart
   .card-body
     .card-text
       = @post.content
@@ -23,6 +28,11 @@
               Delete post
         - else
           .col
+            - if !current_user.liked_posts.pluck(:id).include? @post.id
+              = link_to likes_path(id: @post.id), method: :post do
+                %i.far.fa-thumbs-up
+                +1
+          .col
             - if current_user.followees.pluck(:id).include? @post.user_id
               = link_to follow_path(id: @post.user_id), method: :delete do
                 %i.fas.fa-user-minus
@@ -31,3 +41,8 @@
               = link_to follows_path(id: @post.user_id), method: :post do
                 %i.fas.fa-user-plus
                 Follow
+
+- if @post.likes.size > 0
+  %hr/
+  .h3 Users who liked this post
+  = @post.liking_users.pluck(:username).join(', ')

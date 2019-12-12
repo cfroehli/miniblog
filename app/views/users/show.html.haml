@@ -24,20 +24,16 @@
 
 %br/
 
-.h3
-  = @user.followers.count
-  Followers
-- @user.followers.each do |follower|
-  = follower.username
+- if @user.followers.size > 0
+  .h3
+    = @user.followers.size
+    = "Follower".pluralize(@user.followers.size)
+  = @user.followers.pluck(:username).join(", ")
 
-%hr/
+  %hr/
 
-.h3
-  = @user.followees.count
-  Followees
-- @user.followees.each do |followee|
-  = followee.username
-
-%br/
-
-[TODO: maybe list user posts here, ...]
+- if @user.followees.size > 0
+  .h3
+    = @user.followees.size
+    = "Followee".pluralize(@user.followees.size)
+  = @user.followees.pluck(:username).join(", ")
