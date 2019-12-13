@@ -13,4 +13,11 @@ class LikesController < ApplicationController
     end
     respond_with @post
   end
+
+  private
+    def find_post
+      @post = Post.find(params[:id])
+    end
+
+
 end

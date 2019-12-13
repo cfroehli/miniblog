@@ -21,4 +21,9 @@ class FollowsController < ApplicationController
     flash[:success] = "You're no longer following #{@user.username}"
     respond_with @user
   end
+
+  private
+    def find_user
+      @user = User.find(params[:id])
+    end
 end
