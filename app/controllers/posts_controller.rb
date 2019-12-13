@@ -9,6 +9,7 @@ class PostsController < ApplicationController
   end
 
   def show
+    @comment = Comment.new
     respond_with @post
   end
 
@@ -57,5 +58,9 @@ class PostsController < ApplicationController
 
     def with_username(posts)
       posts.select('posts.*, users.username as user_name')
+    end
+
+    def find_post
+      @post = Post.find(params[:id])
     end
 end

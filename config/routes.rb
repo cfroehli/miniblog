@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :follows, only: [:create, :destroy]
   resources :likes, only: [:create]
   resources :posts do
+    resources :comments, only: [:create]
     get 'followed', on: :collection
     get 'liked', on: :collection
   end

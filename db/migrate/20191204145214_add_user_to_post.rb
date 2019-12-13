@@ -1,6 +1,7 @@
 class AddUserToPost < ActiveRecord::Migration[6.0]
   def change
-    add_reference :posts, :user, foreign_key: true
-    change_column :posts, :user_id, :integer, { :null => false }
+    change_table :posts do |t|
+      t.references :user, foreign_key: true
+    end
   end
 end

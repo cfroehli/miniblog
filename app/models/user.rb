@@ -11,15 +11,18 @@ class User < ApplicationRecord
   has_many :posts, dependent: :destroy
 
   has_many :followers_link, class_name: 'Follow', foreign_key: 'followee_id'
-  has_many :followers, through: :followers_link
+  has_many :followers, through: :followers_link, dependent: :destroy
 
   has_many :followees_link, class_name: 'Follow', foreign_key: 'follower_id'
-  has_many :followees, through: :followees_link
+  has_many :followees, through: :followees_link, dependent: :destroy
 
+  # Shortcut to access followed users posts
   has_many :followed_posts, through: :followees, source: :posts
 
   has_many :likes
-  has_many :liked_posts, through: :likes, source: :post
+  has_many :liked_posts, through: :likes, source: :post, dependent: :destroy
+
+  has_many :comments, dependent: :destroy
 
   attr_writer :login
 

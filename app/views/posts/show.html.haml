@@ -9,8 +9,16 @@
           = @post.user.username
         said:
       .col-sm-4
-        = @post.likes.size
-        %i.far.fa-heart
+        - if @post.likes.size > 0
+          %div{data: { toggle: 'tooltip', html: true },
+               title: @post.liking_users.pluck(:username).join('<br/>')}
+            = @post.likes.size
+            %i.far.fa-heart
+        - else
+          No
+          %i.far.fa-thumbs-up
+          yet !
+          %i.fas.fa-heart-broken
   .card-body
     .card-text
       = @post.content
@@ -42,7 +50,22 @@
                 %i.fas.fa-user-plus
                 Follow
 
-- if @post.likes.size > 0
-  %hr/
-  .h3 Users who liked this post
-  = @post.liking_users.pluck(:username).join(', ')
+%hr/
+
+.h3 Comments
+- @post.comments.joins(:user).select('comments.*, users.username as user_name').order(:updated_at).each do |comment|
+  .card
+    .card-header
+      At
+      = comment.created_at.to_s(:update_timestamp)
+      ,
+      = comment.user_name
+      said:
+    .card-body
+      .card-text
+        = comment.content
+
+%hr/
+
+.h3 Say something too !
+= render 'comments/form'
