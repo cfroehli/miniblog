@@ -6,4 +6,6 @@ class Post < ApplicationRecord
   has_many :liking_users, through: :likes, source: :user, dependent: :destroy
 
   has_many :comments, dependent: :destroy
+
+  mount_uploader :featured_image, FeaturedImageUploader
 end

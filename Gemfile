@@ -38,7 +38,7 @@ gem 'responders', '~> 3.0.0'
 gem 'devise', '~> 4.7.1'
 
 # Image upload
-gem 'carrierwave', '~> 2.0'
+gem 'carrierwave', '< 2.0' # 2.0+ has issues (https://www.bountysource.com/issues/79107821-cloudinary-not-compatible-with-carrierwave-2-0)
 gem 'cloudinary', '~> 1.13'
 
 group :development, :test do

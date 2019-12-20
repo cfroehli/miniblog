@@ -21,7 +21,13 @@
           %i.fas.fa-heart-broken
   .card-body
     .card-text
-      = @post.content
+      .row
+        .col-sm-12.text-center
+          - if !@post.featured_image.blank?
+            = image_tag @post.featured_image.standard.url
+      .row
+        .col-sm-12
+          = @post.content
     .card-link
       %br/
       .row

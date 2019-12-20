@@ -2,7 +2,7 @@
   .h3.text-center
     - if current_page? followed_posts_path
       You're not following anyone at the moment
-    - elsif current_page? linked_posts_path
+    - elsif current_page? liked_posts_path
       You don't have liked any post yet
     - else
       No post available yet :
@@ -23,11 +23,24 @@
               = post.user_name
             said:
           .col-sm-4
-            = post.likes.size
-            %i.far.fa-heart
+            - if post.likes.size > 0
+              %div{data: { toggle: 'tooltip', html: true },
+                   title: post.liking_users.pluck(:username).join('<br/>')}
+                = post.likes.size
+                %i.far.fa-heart
+            - else
+              No
+              %i.far.fa-thumbs-up
+              yet !
+              %i.fas.fa-heart-broken
       .card-body
         .card-text
-          = headline(post)
+          .row
+            .col-sm-2.text-center
+              - if !post.featured_image.blank?
+                = image_tag post.featured_image.thumb.url
+            .col-sm-10
+              = headline(post)
         .card-link
           %br/
           .row
