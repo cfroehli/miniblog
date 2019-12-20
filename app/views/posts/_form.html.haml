@@ -7,7 +7,10 @@
           %li= message
 
   .form-group
+    = f.hidden_field :featured_image_cache
+    = f.file_field :featured_image
     = f.label :content
     = f.text_area :content, rows: 15, id: 'post-content-area', class: 'form-control'
-    %br
+
+    %br/
     = f.button 'Submit', class: 'btn btn-primary'

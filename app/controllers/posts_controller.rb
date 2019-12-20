@@ -53,7 +53,7 @@ class PostsController < ApplicationController
     end
 
     def post_params
-      params.require(:post).permit(:content)
+      params.require(:post).permit(:content, :featured_image, :featured_image_cache)
     end
 
     def with_username(posts)

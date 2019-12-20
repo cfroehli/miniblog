@@ -1,3 +1,4 @@
 $(function () {
-  $('[data-toggle="tooltip"]').tooltip()
-})
+  var tooltips = $('[data-toggle="tooltip"]');
+  if(tooltips.length) tooltips.tooltip();
+});
