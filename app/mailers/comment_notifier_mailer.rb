@@ -1,5 +1,5 @@
 class CommentNotifierMailer < ApplicationMailer
-  default from: ENV.fetch('EMAIL_NOTIFICATION_FROM') { 'invalid@invalid.com' }
+  helper :posts
 
   def new_comment(post, by_user)
     @post = post

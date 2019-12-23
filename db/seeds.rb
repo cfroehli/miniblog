@@ -9,7 +9,7 @@
 users = ['toto', 'titi', 'tutu'].map do |username|
   User.create(
     username: username,
-    email: "#{username}@invalid.com",
+    email: "#{username}@hazeliris.com",
     password: "#{username}pass")
 end
 

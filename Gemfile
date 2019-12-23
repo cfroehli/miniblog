@@ -41,6 +41,9 @@ gem 'devise', '~> 4.7.1'
 gem 'carrierwave', '< 2.0' # 2.0+ has issues (https://www.bountysource.com/issues/79107821-cloudinary-not-compatible-with-carrierwave-2-0)
 gem 'cloudinary', '~> 1.13'
 
+# Inline css in email
+gem 'roadie', '~> 4.0'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
