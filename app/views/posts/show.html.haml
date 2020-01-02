@@ -1,60 +1,4 @@
-.card
-  .card-header
-    .row
-      .col-sm-8
-        At
-        = @post.updated_at.to_s(:update_timestamp)
-        = link_to user_path(@post.user) do
-          %i.fa.fa-user
-          = @post.user.username
-        said:
-      .col-sm-4
-        - if @post.likes.size > 0
-          %div{data: { toggle: 'tooltip', html: true },
-               title: @post.liking_users.pluck(:username).join('<br/>')}
-            = @post.likes.size
-            %i.far.fa-heart
-        - else
-          No
-          %i.far.fa-thumbs-up
-          yet !
-          %i.fas.fa-heart-broken
-  .card-body
-    .card-text
-      .row
-        .col-sm-12.text-center
-          - if !@post.featured_image.blank?
-            = image_tag @post.featured_image.standard.url
-      .row
-        .col-sm-12
-          = @post.content
-    .card-link
-      %br/
-      .row
-        - if current_user == @post.user
-          .col
-            = link_to edit_post_path(@post) do
-              %i.fa.fa-edit
-              Edit post
-          .col
-            = link_to @post, method: :delete, data: { confirm: 'Are you sure?' } do
-              %i.far.fa-trash-alt
-              Delete post
-        - else
-          .col
-            - if !current_user.liked_posts.pluck(:id).include? @post.id
-              = link_to likes_path(id: @post.id), method: :post do
-                %i.far.fa-thumbs-up
-                +1
-          .col
-            - if current_user.followees.pluck(:id).include? @post.user_id
-              = link_to follow_path(id: @post.user_id), method: :delete do
-                %i.fas.fa-user-minus
-                Unfollow
-            - else
-              = link_to follows_path(id: @post.user_id), method: :post do
-                %i.fas.fa-user-plus
-                Follow
+= render partial: 'post', locals: { post: @post, followees_ids: current_user.followees.pluck(:id), liked_posts_ids: current_user.liked_posts.pluck(:id), preview_mode: false }
 
 %hr/
 
@@ -63,7 +7,7 @@
   .card
     .card-header
       At
-      = comment.created_at.to_s(:update_timestamp)
+      = comment.created_at.to_s(:timestamp)
       ,
       = comment.user_name
       said:

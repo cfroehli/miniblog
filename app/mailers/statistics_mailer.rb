@@ -5,6 +5,6 @@ class StatisticsMailer < ApplicationMailer
     @user = user
     @posts = posts
     mail(to: @user.email,
-         subject: "Miniblog #{DateTime.now.to_s(:update_timestamp)} top 10 posts ranking.")
+         subject: "Miniblog #{DateTime.now.to_s(:timestamp)} top 10 posts ranking.")
   end
 end

@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-  before_action :find_user, only: [:show]
   respond_to :html, :json
 
   def index
@@ -8,11 +7,7 @@ class UsersController < ApplicationController
   end
 
   def show
+    @user = User.find(params[:id])
     respond_with @user
   end
-
-  private
-    def find_user
-      @user = User.find(params[:id])
-    end
 end
