@@ -3,18 +3,10 @@
     %i.fa.fa-user
     = @user.username
     's profile
-    - if current_user != @user
-      - if current_user.followees.pluck(:id).include? @user.id
-        = link_to follow_path(id: @user.id), method: :delete do
-          %i.fas.fa-user-minus
-          Unfollow
-      - else
-        = link_to follows_path(id: @user.id), method: :post do
-          %i.fas.fa-user-plus
-          Follow
+    = render 'follow_link', user: @user, followees_ids: current_user.followees.pluck(:id)
   .card-body
     .card-text
-      = @user.profile.blank? ? "#{@user.username} didn't set any profile information yet..." : @user.profile
+      = user_profile(@user) || "#{@user.username} didn't set any profile information yet..."
       - if !@user.blog_url.blank?
         %br/
         .card-link

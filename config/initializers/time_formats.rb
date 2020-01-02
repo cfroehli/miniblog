@@ -1,1 +1,1 @@
-Time::DATE_FORMATS[:update_timestamp] = '%Y/%m/%d %H:%M:%S'
+Time::DATE_FORMATS[:timestamp] = '%Y/%m/%d %H:%M:%S'

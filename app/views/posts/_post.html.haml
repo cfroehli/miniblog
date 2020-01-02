@@ -1,0 +1,72 @@
+.card
+  .card-header
+    .row
+      .col-sm-8
+        At
+        = post.updated_at.to_s(:timestamp)
+        = link_to user_path(post.user_id) do
+          %i.fa.fa-user
+          = post.user_name
+        said:
+      .col-sm-4
+        - if post.likes.size > 0
+          %div{data: { toggle: 'tooltip', html: true },
+               title: post.liking_users.pluck(:username).join('<br/>')}
+            = post.likes.size
+            %i.far.fa-heart
+        - else
+          No
+          %i.far.fa-thumbs-up
+          yet !
+          %i.fas.fa-heart-broken
+  .card-body
+    .card-text
+      - if preview_mode
+        .row
+          .col-sm-2.text-center
+            - if !post.featured_image.blank?
+              = image_tag post.featured_image.thumb.url
+          .col-sm-10
+            = headline(post)
+      - else
+        .row
+          .col-sm-12.text-center
+            - if !@post.featured_image.blank?
+              = image_tag @post.featured_image.standard.url
+        .row
+          .col-sm-12
+            = @post.content
+    .card-link
+      %br/
+      .row
+        - if preview_mode
+          .col
+            = link_to post do
+              %i.fa.fa-eye
+              View full post
+        - if current_user.id == post.user_id
+          .col
+            = link_to edit_post_path(post) do
+              %i.fa.fa-edit
+              Edit post
+          .col
+            = link_to post, method: :delete, data: { confirm: 'Are you sure?' } do
+              %i.far.fa-trash-alt
+              Delete post
+        - else
+          .col
+            - if !liked_posts_ids.include? post.id
+              = link_to likes_path(id: post.id), method: :post do
+                %i.far.fa-thumbs-up
+                +1
+          .col
+            - if followees_ids.include? post.user_id
+              = link_to follow_path(id: post.user_id), method: :delete do
+                %i.fas.fa-user-minus
+                Unfollow
+            - else
+              = link_to follows_path(id: post.user_id), method: :post do
+                %i.fas.fa-user-plus
+                Follow
+
+%br/

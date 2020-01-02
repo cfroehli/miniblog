@@ -1,14 +1,14 @@
 class PostsController < ApplicationController
   before_action :find_current_user_post, only: [:edit, :update, :destroy]
-  before_action :find_post, only: [:show]
   respond_to :html, :json
 
   def index
-    @posts = with_username(Post.joins(:user))
+    @posts = with_username(Post)
     respond_with @posts
   end
 
   def show
+    @post = with_username(Post).find(params[:id])
     @comment = Comment.new
     respond_with @post
   end
@@ -40,13 +40,14 @@ class PostsController < ApplicationController
   end
 
   def liked
-    @posts = with_username(current_user.liked_posts.joins(:user))
+    @posts = with_username(current_user.liked_posts)
     render :index
   end
 
+
   private
     def find_current_user_post
-      @post = current_user.posts.find(params[:id])
+      @post = with_username(current_user.posts).find(params[:id])
     rescue ActiveRecord::RecordNotFound
       flash[:danger] = "User #{current_user.username} does not own the post [#{params[:id]}]."
       redirect_to :action => 'index'
@@ -57,10 +58,6 @@ class PostsController < ApplicationController
     end
 
     def with_username(posts)
-      posts.select('posts.*, users.username as user_name')
-    end
-
-    def find_post
-      @post = Post.find(params[:id])
+      posts.joins(:user).select('posts.*, users.username as user_name')
     end
 end

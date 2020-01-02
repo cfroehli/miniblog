@@ -58,6 +58,7 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
   # Display info in browser (require browser extension)
   gem 'meta_request'
+  gem 'pry'
 end
 
 group :test do

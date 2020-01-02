@@ -9,15 +9,7 @@
           .carousel-caption.d-none.d-md-block
             = link_to user_path(user.id) do
               %h1= user.username
-            - if current_user != user
-              - if followees_ids.include? user.id
-                = link_to follow_path(id: user.id), method: :delete do
-                  %i.fas.fa-user-minus
-                  Unfollow
-              - else
-                = link_to follows_path(id: user.id), method: :post do
-                  %i.fas.fa-user-plus
-                  Follow
+            = render 'follow_link', user: user, followees_ids: followees_ids
             - if !user.profile.blank?
               %h2= user.profile
             - if !user.blog_url.blank?
