@@ -5,8 +5,8 @@ class User < ApplicationRecord
 
   validates :username, presence: :true, uniqueness: { case_sensitive: false }, length: { minimum: 1, maximum: 20 }
   validates :profile, length: { maximum: 200 }
-  validates_format_of :blog_url, allow_blank: true, with: /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/
-  validates_format_of :username, with: /[a-zA-Z0-9_\.]+/
+  validates_format_of :blog_url, allow_blank: true, with: /\A(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})\z/
+  validates_format_of :username, with: /\A[a-zA-Z0-9_\.]+\z/
 
   has_many :posts, dependent: :destroy
 

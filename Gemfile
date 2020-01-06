@@ -59,6 +59,7 @@ group :development do
   # Display info in browser (require browser extension)
   gem 'meta_request'
   gem 'pry'
+  gem 'pry-doc'
 end
 
 group :test do
