@@ -4,9 +4,9 @@ This is just a sandbox project used while learning ruby/rails. Do not trust this
 
 
 # TODO:
- - edit/delete comments
- - merge redundant parts of the views (follow links, ...) : probably regroup as partials with params
  - unit tests
+ - drop no more used images from cloudinary
+ - edit/delete comments
  - pagination
  - search feature
  - posts tag feature
