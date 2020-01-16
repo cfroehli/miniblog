@@ -25,14 +25,14 @@
         .row
           .col-sm-2.text-center
             - if !post.featured_image.blank?
-              = image_tag post.featured_image.thumb.url
+              = cl_image_tag post.featured_image.thumb, secure: true
           .col-sm-10
             = headline(post)
       - else
         .row
           .col-sm-12.text-center
             - if !@post.featured_image.blank?
-              = image_tag @post.featured_image.standard.url
+              = cl_image_tag @post.featured_image.standard, secure: true
         .row
           .col-sm-12
             = @post.content

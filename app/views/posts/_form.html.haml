@@ -14,3 +14,6 @@
 
     %br/
     = f.button 'Submit', class: 'btn btn-primary'
+
+- content_for :extra_js do
+  = javascript_pack_tag 'cloudinary_upload', 'data-turbolinks-track': 'reload'
