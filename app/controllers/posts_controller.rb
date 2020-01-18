@@ -4,18 +4,15 @@ class PostsController < ApplicationController
 
   def index
     @posts = with_username(Post)
-    respond_with @posts
   end
 
   def show
     @post = with_username(Post).find(params[:id])
     @comment = Comment.new
-    respond_with @post
   end
 
   def new
     @post = current_user.posts.new
-    respond_with @post
   end
 
   def create
@@ -50,7 +47,7 @@ class PostsController < ApplicationController
       @post = with_username(current_user.posts).find(params[:id])
     rescue ActiveRecord::RecordNotFound
       flash[:danger] = "User #{current_user.username} does not own the post [#{params[:id]}]."
-      redirect_to :action => 'index'
+      redirect_to :index
     end
 
     def post_params
