@@ -3,7 +3,7 @@
 %hr/
 
 .h3 Comments
-- @post.comments.joins(:user).select('comments.*, users.username as user_name').order(:updated_at).each do |comment|
+- @post.comments.with_username.order(:updated_at).each do |comment|
   .card
     .card-header
       At
