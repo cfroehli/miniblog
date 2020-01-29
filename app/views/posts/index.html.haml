@@ -10,7 +10,7 @@
         Be the first to say something
 - else
   = render partial: 'post',
-           collection: @posts.order(updated_at: :desc),
+           collection: @posts.with_username.order(updated_at: :desc),
            as: 'post',
            locals: { followees_ids: current_user.followees.pluck(:id),
                      liked_posts_ids: current_user.liked_posts.pluck(:id),
