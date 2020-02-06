@@ -9,11 +9,11 @@
   .form-group
     = f.hidden_field :featured_image_cache
     = f.file_field :featured_image, class: 'form-control'
-    = f.label :content
+    = f.label :content, class: 'col-form-label'
     = f.text_area :content, rows: 15, id: 'post-content-area', class: 'form-control'
 
     %br/
     = f.button 'Submit', class: 'btn btn-primary'
 
 - content_for :extra_js do
-  = javascript_pack_tag 'cloudinary_upload', 'data-turbolinks-track': 'reload'
+  = javascript_pack_tag 'cloudinary_upload', 'data-turbolinks-track': 'reload', defer: true
