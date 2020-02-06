@@ -4,6 +4,6 @@
 // Manually select the js for node > 8
 import 'cloudinary/lib/cloudinary.js';
 
-document.addEventListener("turbolinks:load", () => {
+$(document).on("turbolinks:load", () => {
   $("input.cloudinary-fileupload[type=file]").cloudinary_fileupload();
 });

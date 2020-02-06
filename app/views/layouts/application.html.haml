@@ -7,12 +7,17 @@
     = csrf_meta_tags
     = csp_meta_tag
 
-    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
-
     = stylesheet_pack_tag 'bootstrap4', media: 'all', 'data-turbolinks-track': 'reload'
     = stylesheet_pack_tag 'fontawesome', media: 'all', 'data-turbolinks-track': 'reload'
 
     = yield :extra_styles
+
+    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload', defer: true
+    = javascript_pack_tag 'bootstrap4', 'data-turbolinks-track': 'reload', defer: true
+    = javascript_pack_tag 'fontawesome', 'data-turbolinks-track': 'reload', defer: true
+
+    = yield :extra_js
+
 
   %body
     .container
@@ -63,8 +68,3 @@
               &times;
 
       = yield
-
-      = javascript_pack_tag 'bootstrap4', 'data-turbolinks-track': 'reload'
-      = javascript_pack_tag 'fontawesome', 'data-turbolinks-track': 'reload'
-
-      = yield :extra_js
