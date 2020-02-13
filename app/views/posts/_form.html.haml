@@ -8,7 +8,9 @@
 
   .form-group
     = f.hidden_field :featured_image_cache
-    = f.file_field :featured_image, class: 'form-control'
+    .custom-file
+      = f.label :featured_image, class: 'custom-file-label'
+      = f.file_field :featured_image, class: 'custom-file-input'
     = f.label :content, class: 'col-form-label'
     = f.text_area :content, rows: 15, id: 'post-content-area', class: 'form-control'
 

@@ -7,7 +7,7 @@
   .card-body
     .card-text
       = user_profile(@user) || "#{@user.username} didn't set any profile information yet..."
-      - if !@user.blog_url.blank?
+      - unless @user.blog_url.blank?
         %br/
         .card-link
           = link_to @user.blog_url do

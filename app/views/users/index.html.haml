@@ -10,9 +10,9 @@
             = link_to user_path(user.id) do
               %h1= user.username
             = render 'follow_link', user: user, followees_ids: followees_ids
-            - if !user.profile.blank?
+            - unless user.profile.blank?
               %h2= user.profile
-            - if !user.blog_url.blank?
+            - unless user.blog_url.blank?
               %p
                 = link_to user.blog_url do
                   %i.fas.fa-blog
