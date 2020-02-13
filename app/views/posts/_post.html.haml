@@ -24,14 +24,14 @@
       - if preview_mode
         .row
           .col-sm-2.text-center
-            - if !post.featured_image.blank?
+            - unless post.featured_image.blank?
               = cl_image_tag post.featured_image.thumb, secure: true
           .col-sm-10
             = headline(post)
       - else
         .row
           .col-sm-12.text-center
-            - if !@post.featured_image.blank?
+            - unless @post.featured_image.blank?
               = cl_image_tag @post.featured_image.standard, secure: true
         .row
           .col-sm-12
@@ -55,7 +55,7 @@
               Delete post
         - else
           .col
-            - if !liked_posts_ids.include? post.id
+            - unless liked_posts_ids.include? post.id
               = link_to likes_path(id: post.id), method: :post do
                 %i.far.fa-thumbs-up
                 +1
