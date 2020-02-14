@@ -1,8 +1,8 @@
 class FollowsController < ApplicationController
-  before_action :find_user, only: [:create, :destroy]
   respond_to :json, :html
 
   def create
+    @user = find_user
     if current_user != @user
       follow_link = current_user.followees_link.create(followee: @user)
       if follow_link.save
@@ -17,6 +17,7 @@ class FollowsController < ApplicationController
   end
 
   def destroy
+    @user = find_user
     current_user.followees_link.find_by(followee: @user).destroy
     flash[:success] = "You're no longer following #{@user.username}"
     respond_with @user
