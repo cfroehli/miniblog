@@ -1,5 +1,4 @@
 class PostsController < ApplicationController
-  before_action :find_current_user_post, only: [:edit, :update, :destroy]
   respond_to :html, :json
 
   def index
@@ -21,12 +20,18 @@ class PostsController < ApplicationController
     respond_with @post
   end
 
+  def edit
+    @post = find_current_user_post
+  end
+
   def update
+    @post = find_current_user_post
     flash[:success] = 'Post was successfully updated.' if @post.update(post_params)
     respond_with @post
   end
 
   def destroy
+    @post = find_current_user_post
     flash[:success] = 'Post was successfully destroyed.' if @post.destroy
     respond_with @post
   end
@@ -44,7 +49,7 @@ class PostsController < ApplicationController
 
   private
     def find_current_user_post
-      @post = current_user.posts.find(params[:id])
+      current_user.posts.find(params[:id])
     rescue ActiveRecord::RecordNotFound
       flash[:danger] = "User #{current_user.username} does not own the post [#{params[:id]}]."
       redirect_to :index
