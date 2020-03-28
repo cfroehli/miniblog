@@ -38,7 +38,7 @@ gem 'responders', '~> 3.0.0'
 gem 'devise', '~> 4.7.1'
 
 # Image upload
-gem 'carrierwave', '< 2.0' # 2.0+ has issues (https://www.bountysource.com/issues/79107821-cloudinary-not-compatible-with-carrierwave-2-0)
+gem 'carrierwave', '~> 2.1.0'
 gem 'cloudinary', '~> 1.13'
 
 # Inline css in email
@@ -52,7 +52,7 @@ end
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'web-console', '>= 3.3.0'
-  gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'listen', '>= 3.2.1', '< 3.3'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
