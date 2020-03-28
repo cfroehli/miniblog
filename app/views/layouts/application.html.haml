@@ -7,17 +7,16 @@
     = csrf_meta_tags
     = csp_meta_tag
 
-    = stylesheet_pack_tag 'bootstrap4', media: 'all', 'data-turbolinks-track': 'reload'
-    = stylesheet_pack_tag 'fontawesome', media: 'all', 'data-turbolinks-track': 'reload'
-
-    = yield :extra_styles
-
-    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload', defer: true
-    = javascript_pack_tag 'bootstrap4', 'data-turbolinks-track': 'reload', defer: true
-    = javascript_pack_tag 'fontawesome', 'data-turbolinks-track': 'reload', defer: true
+    = javascript_packs_with_chunks_tag 'common', 'data-turbolinks-track': 'reload', defer: true
+    = javascript_packs_with_chunks_tag 'bootstrap4', 'data-turbolinks-track': 'reload', defer: true
+    = javascript_packs_with_chunks_tag 'fontawesome', 'data-turbolinks-track': 'reload', defer: true
 
     = yield :extra_js
 
+    = stylesheet_packs_with_chunks_tag 'bootstrap4', media: 'all', 'data-turbolinks-track': 'reload'
+    = stylesheet_packs_with_chunks_tag 'fontawesome', media: 'all', 'data-turbolinks-track': 'reload'
+
+    = yield :extra_styles
 
   %body
     .container
