@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PostsController < ApplicationController
   respond_to :html, :json
 
@@ -46,16 +48,16 @@ class PostsController < ApplicationController
     render :index
   end
 
-
   private
-    def find_current_user_post
-      current_user.posts.find(params[:id])
-    rescue ActiveRecord::RecordNotFound
-      flash[:danger] = "User #{current_user.username} does not own the post [#{params[:id]}]."
-      redirect_to :index
-    end
 
-    def post_params
-      params.require(:post).permit(:content, :featured_image, :featured_image_cache)
-    end
+  def find_current_user_post
+    current_user.posts.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    flash[:danger] = "User #{current_user.username} does not own the post [#{params[:id]}]."
+    redirect_to :index
+  end
+
+  def post_params
+    params.require(:post).permit(:content, :featured_image, :featured_image_cache)
+  end
 end

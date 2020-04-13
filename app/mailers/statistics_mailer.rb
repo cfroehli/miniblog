@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class StatisticsMailer < ApplicationMailer
   helper :posts
 
