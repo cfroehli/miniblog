@@ -1,8 +1,9 @@
-module PostsHelper
+# frozen_string_literal: true
 
-  HeadlineSize = 40
+module PostsHelper
+  HEADLINE_SIZE = 40
 
   def headline(post)
-    post.content.truncate(HeadlineSize)
+    post.content.truncate(HEADLINE_SIZE)
   end
 end

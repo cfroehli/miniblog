@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CommentsController < ApplicationController
   respond_to :html, :json
 
@@ -9,6 +11,7 @@ class CommentsController < ApplicationController
   end
 
   private
+
   def find_post
     Post.find(params[:post_id])
   end

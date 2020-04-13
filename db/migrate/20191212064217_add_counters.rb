@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class AddCounters < ActiveRecord::Migration[6.0]
   def change
-    change_table :users do |t|
+    change_table :users, bulk: true do |t|
       t.integer :followers_count, default: 0
       t.integer :followees_count, default: 0
       t.integer :likes_count, default: 0

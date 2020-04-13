@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FollowsController < ApplicationController
   respond_to :json, :html
 
@@ -24,7 +26,8 @@ class FollowsController < ApplicationController
   end
 
   private
-    def find_user
-      @user = User.find(params[:id])
-    end
+
+  def find_user
+    @user = User.find(params[:id])
+  end
 end
