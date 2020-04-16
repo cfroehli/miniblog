@@ -1,22 +1,31 @@
 # frozen_string_literal: true
 
 class LikesController < ApplicationController
-  respond_to :json, :html
+  respond_to :html
+
+  before_action :forbid_own_post, only: %i[create]
 
   def create
-    @post = find_post
-    if current_user != @post.user
-      like = current_user.likes.create(post: @post)
-      flash[:success] = 'Thank you !' if like.save
+    post = liked_post
+    like = current_user.likes.create(post: post)
+    if like.save
+      flash[:success] = 'Thank you !'
     else
-      flash[:warning] = "You're not allowed to increment the like counter yourself !"
+      flash[:warning] = "Unable to register 'like' to post #{post.id}"
     end
-    respond_with @post
+    respond_with post
   end
 
   private
+  def liked_post
+    @liked_post ||= Post.find(params[:id])
+  end
 
-  def find_post
-    Post.find(params[:id])
+  def forbid_own_post
+    post = liked_post
+    if current_user == post.user
+      flash[:warning] = "You're not allowed to increment the like counter yourself !"
+      respond_with post
+    end
   end
 end

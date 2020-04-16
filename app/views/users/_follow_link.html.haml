@@ -1,9 +1,9 @@
-- if current_user != user
-  - if followees_ids.include? user.id
-    = link_to follow_path(id: user.id), method: :delete do
+- if current_user.id != user_id
+  - if followees_ids.include? user_id
+    = link_to follows_user_path(id: user_id), method: :delete do
       %i.fas.fa-user-minus
       Unfollow
   - else
-    = link_to follows_path(id: user.id), method: :post do
+    = link_to follows_user_path(id: user_id), method: :post do
       %i.fas.fa-user-plus
       Follow

@@ -3,7 +3,7 @@
     %i.fa.fa-user
     = @user.username
     's profile
-    = render 'follow_link', user: @user, followees_ids: current_user.followees.pluck(:id)
+    = render 'follow_link', user_id: @user.id, followees_ids: current_user.followees.pluck(:id)
   .card-body
     .card-text
       = user_profile(@user) || "#{@user.username} didn't set any profile information yet..."
