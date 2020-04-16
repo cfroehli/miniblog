@@ -60,13 +60,5 @@
                 %i.far.fa-thumbs-up
                 +1
           .col
-            - if followees_ids.include? post.user_id
-              = link_to follow_path(id: post.user_id), method: :delete do
-                %i.fas.fa-user-minus
-                Unfollow
-            - else
-              = link_to follows_path(id: post.user_id), method: :post do
-                %i.fas.fa-user-plus
-                Follow
-
+            = render 'users/follow_link', user_id: post.user_id, followees_ids: followees_ids
 %br/

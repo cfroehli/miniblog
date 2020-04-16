@@ -9,7 +9,7 @@
           .carousel-caption.d-none.d-md-block
             = link_to user_path(user.id) do
               %h1= user.username
-            = render 'follow_link', user: user, followees_ids: followees_ids
+            = render 'follow_link', user_id: user.id, followees_ids: followees_ids
             - unless user.profile.blank?
               %h2= user.profile
             - unless user.blog_url.blank?

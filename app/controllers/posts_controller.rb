@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class PostsController < ApplicationController
-  respond_to :html, :json
+  respond_to :html
 
   def index
     @posts = Post.all
@@ -17,9 +17,9 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = current_user.posts.new(post_params)
-    flash[:success] = 'Post was successfully created.' if @post.save
-    respond_with @post
+    post = current_user.posts.new(post_params)
+    flash[:success] = 'Post was successfully created.' if post.save
+    respond_with post
   end
 
   def edit
@@ -27,15 +27,15 @@ class PostsController < ApplicationController
   end
 
   def update
-    @post = find_current_user_post
-    flash[:success] = 'Post was successfully updated.' if @post.update(post_params)
-    respond_with @post
+    post = find_current_user_post
+    flash[:success] = 'Post was successfully updated.' if post.update(post_params)
+    respond_with post
   end
 
   def destroy
-    @post = find_current_user_post
-    flash[:success] = 'Post was successfully destroyed.' if @post.destroy
-    respond_with @post
+    post = find_current_user_post
+    flash[:success] = 'Post was successfully destroyed.' if post.destroy
+    respond_with post
   end
 
   def followed
@@ -52,9 +52,6 @@ class PostsController < ApplicationController
 
   def find_current_user_post
     current_user.posts.find(params[:id])
-  rescue ActiveRecord::RecordNotFound
-    flash[:danger] = "User #{current_user.username} does not own the post [#{params[:id]}]."
-    redirect_to :index
   end
 
   def post_params
