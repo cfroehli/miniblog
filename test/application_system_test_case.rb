@@ -2,6 +2,23 @@
 
 require 'test_helper'
 
-class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
-  driven_by :selenium, using: :chrome, screen_size: [1400, 1400]
+if ENV['USE_SELENIUM_CONTAINERS'].present?
+  class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
+    include Devise::Test::IntegrationHelpers
+
+    driven_by :selenium,
+              using: :headless_chrome,
+              screen_size: [1400, 1400],
+              options: { url: 'http://selenium-server:4444/wd/hub' }
+
+    def setup
+      Capybara.server_host = '0.0.0.0'
+      host! "http://#{Socket.gethostname}:#{Capybara.server_port}"
+      super
+    end
+  end
+else
+  class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
+    driven_by :selenium, using: :chrome, screen_size: [1400, 1400]
+  end
 end

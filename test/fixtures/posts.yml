@@ -2,8 +2,12 @@
 
 one:
   user: one
-  content: MyText
+  content: first post content by one
 
 two:
   user: one
-  content: MyText
+  content: second post content by one
+
+three:
+  user: two
+  content: first post content by two

@@ -6,6 +6,7 @@ class UsersController < ApplicationController
   end
 
   def show
+    flash.keep
     @user = User.find(params[:id])
   end
 end

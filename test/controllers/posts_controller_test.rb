@@ -25,7 +25,6 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
     assert_difference('Post.count') do
       post posts_url, params: { post: { content: @post.content } }
     end
-
     assert_redirected_to post_url(Post.last)
   end
 
