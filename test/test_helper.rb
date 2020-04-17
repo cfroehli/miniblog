@@ -2,8 +2,10 @@
 
 ENV['RAILS_ENV'] ||= 'test'
 
-require 'simplecov'
-SimpleCov.start
+if ENV['COVERAGE']
+  require 'simplecov'
+  SimpleCov.start 'rails'
+end
 
 require_relative '../config/environment'
 require 'rails/test_help'
@@ -11,19 +13,20 @@ require 'rails/test_help'
 module ActiveSupport
   class TestCase
     # Run tests in parallel with specified workers
-    # parallelize(workers: :number_of_processors)
-    parallelize(workers: 1)
+    parallelize(workers: :number_of_processors)
 
     # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
     fixtures :all
 
     # Add more helper methods to be used by all tests here...
-  end
-end
-
-module ActionController
-  class TestCase
-    include Devise::Test::ControllerHelpers
+    if ENV['COVERAGE']
+      parallelize_setup do |worker|
+        SimpleCov.command_name "#{SimpleCov.command_name}-#{worker}"
+      end
+      parallelize_teardown do |worker|
+        SimpleCov.result
+      end
+    end
   end
 end
 

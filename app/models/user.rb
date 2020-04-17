@@ -5,10 +5,15 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable
 
-  validates :username, presence: true, uniqueness: { case_sensitive: false }, length: { minimum: 1, maximum: 20 }
+  validates :username,
+            presence: true,
+            uniqueness: { case_sensitive: false },
+            length: { minimum: 1, maximum: 20 },
+            format: /\A[a-zA-Z0-9_\.]+\z/
   validates :profile, length: { maximum: 200 }
-  validates :username, format: /\A[a-zA-Z0-9_\.]+\z/
-  validates :blog_url, allow_blank: true, format: /\A(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})\z/ # rubocop:disable Layout/LineLength
+  validates :blog_url,
+            allow_blank: true,
+            format: /\A(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})\z/ # rubocop:disable Layout/LineLength
 
   has_many :posts, dependent: :destroy
 

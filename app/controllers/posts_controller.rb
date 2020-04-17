@@ -8,6 +8,7 @@ class PostsController < ApplicationController
   end
 
   def show
+    flash.keep
     @post = Post.with_username.find(params[:id])
     @comment = Comment.new
   end
