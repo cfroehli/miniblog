@@ -18,7 +18,7 @@ class PostsTest < ApplicationSystemTestCase
 
   test 'creating a Post' do
     visit posts_url
-    click_on 'Post new content'
+    click_on 'Post new content', match: :first
 
     fill_in 'post-content-area', with: 'test post content'
     click_on 'Submit'
@@ -43,5 +43,27 @@ class PostsTest < ApplicationSystemTestCase
     end
 
     assert_text 'Post was successfully destroyed.'
+  end
+
+  test 'list followed posts' do
+    visit posts_url
+    assert_text 'first post content by one'
+    assert_text 'first post content by two'
+    click_on 'Followed', match: :first
+
+    refute_text 'first post content by one'
+    assert_text 'first post content by two'
+    assert_text 'second post content by two'
+  end
+
+  test 'list liked posts' do
+    visit posts_url
+    assert_text 'first post content by one'
+    assert_text 'first post content by two'
+    click_on 'Liked', match: :first
+
+    refute_text 'second post content by one'
+    assert_text 'first post content by two'
+    refute_text 'second post content by two'
   end
 end

@@ -3,7 +3,3 @@
 one:
   follower: one
   followee: two
-
-two:
-  follower: two
-  followee: one

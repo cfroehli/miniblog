@@ -11,3 +11,7 @@ two:
 three:
   user: two
   content: first post content by two
+
+four:
+  user: two
+  content: second post content by two

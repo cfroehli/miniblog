@@ -8,11 +8,7 @@ class LikesController < ApplicationController
   def create
     post = liked_post
     like = current_user.likes.create(post: post)
-    if like.save
-      flash[:success] = 'Thank you !'
-    else
-      flash[:warning] = "Unable to register 'like' to post #{post.id}"
-    end
+    flash[:success] = 'Thank you !' if like.save
     respond_with post
   end
 

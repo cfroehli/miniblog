@@ -8,7 +8,7 @@ if ENV['USE_SELENIUM_CONTAINERS'].present?
 
     driven_by :selenium,
               using: :headless_chrome,
-              screen_size: [1400, 1400],
+              screen_size: [1024, 800],
               options: { url: 'http://selenium-server:4444/wd/hub' }
 
     def setup
