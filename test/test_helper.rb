@@ -4,7 +4,9 @@ ENV['RAILS_ENV'] ||= 'test'
 
 if ENV['COVERAGE']
   require 'simplecov'
-  SimpleCov.start 'rails'
+  SimpleCov.start 'rails' do
+    enable_coverage :branch
+  end
 end
 
 require_relative '../config/environment'

@@ -8,18 +8,14 @@ class FollowsController < ApplicationController
   def follow
     followed_user = find_user
     follow_link = current_user.followees_link.create(followee: followed_user)
-    if follow_link.save
-      flash[:success] = "You're now following #{followed_user.username}"
-    else
-      flash[:warning] = "Unable to follow #{followed_user.username}"
-    end
+    flash[:success] = "You're now following #{followed_user.username}" if follow_link.save
     respond_with followed_user
   end
 
   def unfollow
     followed_user = find_user
-    current_user.followees_link.find_by(followee: followed_user).destroy
-    flash[:success] = "You're no longer following #{followed_user.username}"
+    followee = current_user.followees_link.find_by(followee: followed_user)
+    flash[:success] = "You're no longer following #{followed_user.username}" if followee.destroy
     respond_with followed_user
   end
 

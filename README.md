@@ -2,6 +2,12 @@
 
 This is just a sandbox project used while learning ruby/rails. Do not trust this code too much...
 
+# Coverage
+
+  - Simplecov doesnt play well with spring
+  export COVERAGE=true
+  export DISABLE_SPRING=true
+
 # Notes about running system tests
 
   - selenium containers config in docker compose
@@ -41,6 +47,7 @@ This is just a sandbox project used while learning ruby/rails. Do not trust this
    - single container with vncserver
      export USE_SELENIUM_CONTAINERS=Y
      edit application_system_test_case.rb => using: :chrome
+     reduce test worker pool to 1 (or they'll fight for the only browser available)
      start the selenium-chrome-standalone container
      vncviewer {selenium-chrome-standalone ip}
      rails test:system

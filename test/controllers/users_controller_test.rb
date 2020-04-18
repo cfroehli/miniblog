@@ -5,11 +5,16 @@ require 'test_helper'
 class UsersControllerTest < ActionDispatch::IntegrationTest
   def setup
     @user = users(:one)
+    sign_in @user
   end
 
   test 'should get index' do
-    sign_in @user
     get users_url
+    assert_response :success
+  end
+
+  test 'should show user' do
+    get user_url(@user)
     assert_response :success
   end
 end
