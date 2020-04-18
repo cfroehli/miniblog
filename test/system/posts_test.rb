@@ -9,7 +9,7 @@ class PostsTest < ApplicationSystemTestCase
     sign_in @user
   end
 
-  test 'visiting the index' do
+  test 'displaying all posts' do
     visit posts_url
     @posts.each do |post|
       assert_text post.content
