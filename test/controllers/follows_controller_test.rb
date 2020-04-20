@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class FollowsControllerTest < ActionDispatch::IntegrationTest 
+class FollowsControllerTest < ActionDispatch::IntegrationTest
   test 'should follow' do
     sign_in users(:two)
     other_user = users(:one)
