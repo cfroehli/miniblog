@@ -3,6 +3,8 @@
 class PostsController < ApplicationController
   respond_to :html
 
+  before_action :set_current_user_post, only: %i[edit update destroy]
+
   def index
     @posts = Post.all
   end
@@ -24,19 +26,16 @@ class PostsController < ApplicationController
   end
 
   def edit
-    @post = find_current_user_post
   end
 
   def update
-    post = find_current_user_post
-    flash[:success] = 'Post was successfully updated.' if post.update(post_params)
-    respond_with post
+    flash[:success] = 'Post was successfully updated.' if @post.update(post_params)
+    respond_with @post
   end
 
   def destroy
-    post = find_current_user_post
-    flash[:success] = 'Post was successfully destroyed.' if post.destroy
-    respond_with post
+    flash[:success] = 'Post was successfully destroyed.' if @post.destroy
+    respond_with @post
   end
 
   def followed
@@ -51,8 +50,8 @@ class PostsController < ApplicationController
 
   private
 
-  def find_current_user_post
-    current_user.posts.find(params[:id])
+  def set_current_user_post
+    @post = current_user.posts.find(params[:id])
   end
 
   def post_params

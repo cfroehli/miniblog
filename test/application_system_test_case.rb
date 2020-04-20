@@ -24,6 +24,7 @@ if ENV['USE_SELENIUM_CONTAINERS']
   end
 else
   class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
-    driven_by :selenium, using: :chrome, screen_size: [1400, 1400]
+    include Devise::Test::IntegrationHelpers
+    driven_by :selenium, using: :headless_chrome, screen_size: [1400, 1400]
   end
 end
