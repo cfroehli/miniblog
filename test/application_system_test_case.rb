@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-if ENV['USE_SELENIUM_CONTAINERS'].present?
+if ENV['USE_SELENIUM_CONTAINERS']
   class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     include Devise::Test::IntegrationHelpers
     capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
