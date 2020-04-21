@@ -67,6 +67,8 @@ group :development do
   gem 'meta_request'
   gem 'pry'
   gem 'pry-doc'
+
+  gem 'rubocop-performance'
   gem 'rubocop-rails'
 end
 

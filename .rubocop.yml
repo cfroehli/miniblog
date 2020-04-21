@@ -1,4 +1,6 @@
-require: rubocop-rails
+require:
+  - rubocop-performance
+  - rubocop-rails
 
 AllCops:
   Exclude:
@@ -8,6 +10,9 @@ AllCops:
 
 Style/Documentation:
   Enabled: false
+
+Style/EmptyMethod:
+  EnforcedStyle: expanded
 
 Style/RegexpLiteral:
   EnforcedStyle: slashes
