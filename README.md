@@ -54,7 +54,7 @@ This is just a sandbox project used while learning ruby/rails. Do not trust this
 
    * single container with vncserver
      ~~~bash
-       export USE_SELENIUM_CONTAINERS=Y
+       export USE_SELENIUM_CONTAINERS=true
        # edit application_system_test_case.rb => using: :chrome
        # reduce test worker pool to 1 (or they'll fight for the only browser available)
        docker-compose up -d selenium-chrome-standalone
@@ -64,7 +64,7 @@ This is just a sandbox project used while learning ruby/rails. Do not trust this
 
    * or with a workers pool
      ~~~bash
-       export USE_SELENIUM_CONTAINERS=Y
+       export USE_SELENIUM_CONTAINERS=true
        # edit application_system_test_case.rb => driven_by using: :headless_chrome
        docker-compose up -d selenium-hub
        docker-compose up -d --scale selenium-chrome=4 selenium-chrome

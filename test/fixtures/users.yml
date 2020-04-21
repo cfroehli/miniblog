@@ -9,3 +9,9 @@ two:
   email: titi@test.com
   blog_url: http://myblog.titi.com
   profile: titi profile
+
+three:
+  username: tutu
+  email: tutu@test.com
+  blog_url: http://myblog.tutu.com
+  profile: tutu profile
