@@ -2,9 +2,10 @@
 
 This is just a sandbox project used while learning ruby/rails. Do not trust this code too much...
 
-# TravisCI
+# Indicators
 
 [![Build Status](https://travis-ci.com/cfroehli/miniblog.svg?branch=master)](https://travis-ci.com/cfroehli/miniblog)
+[![Maintainability](https://api.codeclimate.com/v1/badges/530fda24e5291ef5cea8/maintainability)](https://codeclimate.com/github/cfroehli/miniblog/maintainability)
 
 # Coverage
 
