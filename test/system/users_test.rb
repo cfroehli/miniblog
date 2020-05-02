@@ -2,7 +2,7 @@
 
 require 'application_system_test_case'
 
-class PostsTest < ApplicationSystemTestCase
+class UsersTest < ApplicationSystemTestCase
   setup do
     @users = %i[one two].map { |id| users(id) }
     sign_in @users[0]

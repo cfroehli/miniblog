@@ -10,10 +10,10 @@ if ENV['USE_SELENIUM_CONTAINERS']
     )
     driven_by :selenium,
               using: :headless_chrome,
-              screen_size: [1024, 800],
+              screen_size: [1280, 1024],
               options: {
                 url: 'http://selenium-server:4444/wd/hub',
-                desired_capabilities: capabilities
+                desired_capabilities: capabilities,
               }
 
     def setup
@@ -25,6 +25,6 @@ if ENV['USE_SELENIUM_CONTAINERS']
 else
   class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     include Devise::Test::IntegrationHelpers
-    driven_by :selenium, using: :headless_chrome, screen_size: [1400, 1400]
+    driven_by :selenium, using: :headless_chrome, screen_size: [1280, 1024]
   end
 end
