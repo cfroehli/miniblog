@@ -1,4 +1,8 @@
-= render partial: 'post', locals: { post: @post, followees_ids: current_user.followees.pluck(:id), liked_posts_ids: current_user.liked_posts.pluck(:id), preview_mode: false }
+= render partial: 'post',
+         locals: { post: @post,
+                   followees_ids: current_user.followees.pluck(:id),
+                   liked_posts_ids: current_user.liked_posts.pluck(:id),
+                   preview_mode: false }
 
 %hr/
 

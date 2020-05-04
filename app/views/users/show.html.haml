@@ -7,7 +7,7 @@
   .card-body
     .card-text
       = user_profile(@user) || "#{@user.username} didn't set any profile information yet..."
-      - unless @user.blog_url.blank?
+      - if @user.blog_url.present?
         %br/
         .card-link
           = link_to @user.blog_url do
@@ -16,16 +16,16 @@
 
 %br/
 
-- if @user.followers.size > 0
+- if @user.followers.size.positive?
   .h3
     = @user.followers.size
-    = "Follower".pluralize(@user.followers.size)
-  = @user.followers.pluck(:username).join(", ")
+    = 'Follower'.pluralize(@user.followers.size)
+  = @user.followers.pluck(:username).join(', ')
 
   %hr/
 
-- if @user.followees.size > 0
+- if @user.followees.size.positive?
   .h3
     = @user.followees.size
-    = "Followee".pluralize(@user.followees.size)
-  = @user.followees.pluck(:username).join(", ")
+    = 'Followee'.pluralize(@user.followees.size)
+  = @user.followees.pluck(:username).join(', ')

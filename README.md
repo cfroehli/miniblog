@@ -78,3 +78,9 @@ This is just a sandbox project used while learning ruby/rails. Do not trust this
        # edit application_system_test_case.rb => driven_by using: :headless_chrome or :chrome
        rails test:system
      ~~~
+
+   * with rspec
+     ~~~bash
+       rails spec
+       # or rails parallel:spec but seems somewhat no yet reliable/efficient comparing to minitest builtin parallel exec
+     ~~~

@@ -1,5 +1,5 @@
 %h1 Editing post
 
-= render 'form'
+= render partial: 'form', locals: { post: @post }
 
 = link_to 'Show', @post
