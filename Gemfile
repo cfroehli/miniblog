@@ -49,9 +49,10 @@ gem 'cloudinary', '~> 1.13'
 gem 'roadie', '~> 4.0'
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a
-  # debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
+  gem 'factory_bot_rails', '~> 5.2.0'
+  gem 'parallel_tests', '~> 2.32.0'
+  gem 'rspec-rails', '~> 4.0.0'
 end
 
 group :development do
@@ -68,19 +69,15 @@ group :development do
   gem 'pry'
   gem 'pry-doc'
 
-  gem 'rubocop-performance'
-  gem 'rubocop-rails'
+  gem 'sgcop', github: 'SonicGarden/sgcop'
 end
 
 group :test do
   gem 'simplecov', '~> 0.18'
 
-  # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 2.15'
   gem 'selenium-webdriver'
-  # Easy installation and use of web drivers to run system tests with
-  # browsers
-  gem 'webdrivers' unless ENV['USE_SELENIUM_CONTAINERS']
+  gem 'webdrivers', require: !ENV['USE_SELENIUM_CONTAINERS']
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data

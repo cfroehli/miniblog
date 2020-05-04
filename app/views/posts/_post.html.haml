@@ -9,7 +9,7 @@
           = post.user_name
         said:
       .col-sm-4
-        - if post.likes.size > 0
+        - if post.likes.size.positive?
           %div{data: { toggle: 'tooltip', html: true },
                title: post.liking_users.pluck(:username).join('<br/>')}
             = post.likes.size
@@ -24,18 +24,18 @@
       - if preview_mode
         .row
           .col-sm-2.text-center
-            - unless post.featured_image.blank?
+            - if post.featured_image.present?
               = cl_image_tag post.featured_image.thumb, secure: true
           .col-sm-10
             = headline(post)
       - else
         .row
           .col-sm-12.text-center
-            - unless @post.featured_image.blank?
-              = cl_image_tag @post.featured_image.standard, secure: true
+            - if post.featured_image.present?
+              = cl_image_tag post.featured_image.standard, secure: true
         .row
           .col-sm-12
-            = @post.content
+            = post.content
     .card-link
       %br/
       .row
