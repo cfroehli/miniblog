@@ -1,6 +1,9 @@
 FactoryBot.define do
   factory :user do
-    first_name { 'John' }
-    last_name  { 'Doe' }
+    sequence(:username) { |n| "user#{n}" }
+    email { "#{username}@server.com" }
+    blog_url { "http://#{username}.blog.com" }
+    profile { "This is #{username}'s profile." }
+    password { 'password' }
   end
 end

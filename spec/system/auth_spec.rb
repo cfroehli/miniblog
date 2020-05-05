@@ -3,19 +3,16 @@
 require 'rails_helper'
 
 RSpec.describe 'Authentication flow :', type: :system, js: true do
-  fixtures :users, :posts
+  let(:user) { build(:user) }
 
-  let(:user) { users(:one) }
-  let(:other_post) { posts(:three) }
-
-  context 'when user is not logged,' do
+  context 'when user is not logged' do
     it 'will redirect to login page' do
       visit root_path
       expect(page).to have_current_path(new_user_session_path)
     end
   end
 
-  context 'when user is logged,' do
+  context 'when user is logged' do
     before do
       sign_in user
       visit root_path

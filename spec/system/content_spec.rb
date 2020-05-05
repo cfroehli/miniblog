@@ -2,14 +2,12 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Site content management tests :', type: :system, js: true do
-  fixtures :users, :posts, :comments
+RSpec.describe 'Site content :', type: :system, js: true do
+  let(:user) { create(:user) }
+  let(:user_post) { create(:post, user: user) }
+  let(:other_user_post) { create(:post) }
 
-  let(:logged_user) { users(:one) }
-  let(:user_post) { posts(:one) }
-  let(:other_user_post) { posts(:three) }
-
-  before { sign_in logged_user }
+  before { sign_in user }
 
   it 'can create a post' do
     visit root_path
@@ -17,7 +15,7 @@ RSpec.describe 'Site content management tests :', type: :system, js: true do
     fill_in 'post-content-area', with: 'ABCDE'
     click_on 'Submit'
     expect(page).to have_text('Post was successfully created.')
-    expect(page).to have_text("#{logged_user.username} said:")
+    expect(page).to have_text("#{user.username} said:")
     expect(page).to have_selector('div', class: 'card-text', text: 'ABCDE')
   end
 
@@ -27,7 +25,7 @@ RSpec.describe 'Site content management tests :', type: :system, js: true do
     it 'can write a comment' do
       fill_in 'comment-content-area', with: 'ABCDEFGHI'
       click_on 'Submit'
-      expect(page).to have_selector('div', class: 'card-header', text: "#{logged_user.username} said")
+      expect(page).to have_selector('div', class: 'card-header', text: "#{user.username} said")
       expect(page).to have_selector('div', class: 'card-text', text: 'ABCDEFGHI')
     end
 
@@ -48,8 +46,8 @@ RSpec.describe 'Site content management tests :', type: :system, js: true do
       click_on 'Submit'
       expect(ActionMailer:: Base.deliveries).not_to be_empty
       mail = ActionMailer:: Base.deliveries.last
-      expect(mail.subject).to eq("Post #{user_post.id} got a new comment by #{logged_user.username}.")
-      expect(page).to have_selector('div', class: 'card-header', text: "#{logged_user.username} said")
+      expect(mail.subject).to eq("Post #{user_post.id} got a new comment by #{user.username}.")
+      expect(page).to have_selector('div', class: 'card-header', text: "#{user.username} said")
       expect(page).to have_selector('div', class: 'card-text', text: 'ABCDEFGHI')
     end
 

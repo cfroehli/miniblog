@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-Capybara.default_max_wait_time = 15
+Capybara.default_max_wait_time = 15 if ENV['TRAVIS']
 
 if ENV['USE_SELENIUM_CONTAINERS']
   class ApplicationSystemTestCase < ActionDispatch::SystemTestCase

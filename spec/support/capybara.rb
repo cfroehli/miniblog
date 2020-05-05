@@ -1,4 +1,4 @@
-Capybara.default_max_wait_time = 15
+Capybara.default_max_wait_time = 15 if ENV['TRAVIS']
 
 RSpec.configure do |config|
   config.before(:each, type: :system) do
@@ -7,7 +7,7 @@ RSpec.configure do |config|
 
   config.before(:each, type: :system, js: true) do
     if ENV['USE_SELENIUM_CONTAINERS']
-      # System tests don't enable javascript_driver when js: true as
+      # Seems system tests don't enable javascript_driver when js: true as
       # documented, manually select the driver here until fixed
       driven_by Capybara.javascript_driver
 

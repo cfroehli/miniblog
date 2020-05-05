@@ -2,23 +2,21 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Site navigation tests :', type: :system, js: true do
-  fixtures :users, :posts, :likes, :follows
+RSpec.describe 'Site navigation :', type: :system, js: true do
+  let!(:user) { create(:user) }
+  let!(:followed_user) { create(:user) }
+  let!(:other_user) { create(:user) }
 
-  let(:logged_user) { users(:one) }
-  let(:followed_user) { users(:two) }
-  let(:other_user) { users(:three) }
-
-  before { sign_in logged_user }
+  before { sign_in user }
 
   context 'when listing users' do
     before { visit users_path }
 
     it "shows user's infocard" do
       aggregate_failures do
-        [logged_user, followed_user, other_user].each do |user|
-          expect(page).to have_selector('h1', text: user.username, visible: false)
-          expect(page).to have_selector('a', text: user.blog_url, visible: false)
+        [user, followed_user, other_user].each do |current_user|
+          expect(page).to have_selector('h1', text: current_user.username, visible: false)
+          expect(page).to have_selector('a', text: current_user.blog_url, visible: false)
         end
       end
     end
@@ -38,12 +36,12 @@ RSpec.describe 'Site navigation tests :', type: :system, js: true do
       click_on 'Follow', match: :prefer_exact
       expect(page).to have_text("You're now following #{other_user.username}")
       expect(page).to have_selector('a', text: 'Unfollow')
-      expect(page).to have_text(logged_user.username)
+      expect(page).to have_text(user.username)
 
       click_on 'Unfollow', match: :prefer_exact
       expect(page).to have_text("You're no longer following #{other_user.username}")
       expect(page).to have_selector('a', text: 'Follow')
-      expect(page).not_to have_text(logged_user.username)
+      expect(page).not_to have_text(user.username)
     end
   end
 
@@ -65,22 +63,36 @@ RSpec.describe 'Site navigation tests :', type: :system, js: true do
   end
 
   context 'when liked post exists' do
+    let!(:liked_posts) { create_list(:post, 3, user: other_user, liking_users: [user]) }
+    let!(:other_posts) { create_list(:post, 3) }
+
     before do
       visit root_path
       click_on 'Liked', match: :prefer_exact
     end
 
     it 'does not display unliked posts' do
-      expect(page).not_to have_text('second post content by two')
+      aggregate_failures do
+        other_posts.each do |post|
+          expect(page).not_to have_text(post.content)
+        end
+      end
     end
 
     it 'displays liked posts' do
-      expect(page).to have_text('first post content by two')
+      aggregate_failures do
+        liked_posts.each do |post|
+          expect(page).to have_text(post.content)
+        end
+      end
     end
   end
 
   context 'when listing posts' do
-    before { visit root_path }
+    before do
+      create_list(:post, 3, user: other_user)
+      visit root_path
+    end
 
     it 'can like a post' do
       click_on '+1', match: :first
