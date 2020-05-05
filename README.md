@@ -8,10 +8,12 @@ This is just a sandbox project used while learning ruby/rails. Do not trust this
 [![Maintainability](https://api.codeclimate.com/v1/badges/530fda24e5291ef5cea8/maintainability)](https://codeclimate.com/github/cfroehli/miniblog/maintainability)
 
 # Coverage
+  ~~~bash
+    export COVERAGE=true
+  ~~~
 
   * Simplecov doesnt play well with spring
     ~~~bash
-      export COVERAGE=true
       export DISABLE_SPRING=true
     ~~~
 
@@ -56,31 +58,27 @@ This is just a sandbox project used while learning ruby/rails. Do not trust this
    * single container with vncserver
      ~~~bash
        export USE_SELENIUM_CONTAINERS=true
-       # edit application_system_test_case.rb => using: :chrome
+       # edit test/application_system_test_case.rb or spec/support/capybara.rb => using: :chrom instead of :headless_chrome
        # reduce test worker pool to 1 (or they'll fight for the only browser available)
        docker-compose up -d selenium-chrome-standalone
        vncviewer {selenium-chrome-standalone ip} &
        rails test:system
+       # or rails spec
      ~~~
 
    * or with a workers pool
      ~~~bash
        export USE_SELENIUM_CONTAINERS=true
-       # edit application_system_test_case.rb => driven_by using: :headless_chrome
        docker-compose up -d selenium-hub
        docker-compose up -d --scale selenium-chrome=4 selenium-chrome
        rails test:system
+       # or rails spec
      ~~~
 
    * or local chrome
      ~~~bash
        unset USE_SELENIUM_CONTAINERS
-       # edit application_system_test_case.rb => driven_by using: :headless_chrome or :chrome
+       # edit test/application_system_test_case.rb or spec/support/capybara.rb => driven_by using: :headless_chrome or :chrome
        rails test:system
-     ~~~
-
-   * with rspec
-     ~~~bash
-       rails spec
-       # or rails parallel:spec but seems somewhat no yet reliable/efficient comparing to minitest builtin parallel exec
+       # or rails spec
      ~~~

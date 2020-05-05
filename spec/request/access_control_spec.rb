@@ -2,12 +2,10 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Site ACL tests :', type: :request do
-  fixtures :users, :posts, :likes
-
-  let(:user) { users(:one) }
-  let(:user_post) { posts(:one) }
-  let(:other_post) { posts(:three) }
+RSpec.describe 'Site ACL :', type: :request do
+  let(:user) { create(:user) }
+  let(:user_post) { create(:post, user: user) }
+  let!(:other_post) { create(:post) }
 
   context 'when user is not logged' do
     it 'cant delete a post' do
@@ -27,6 +25,7 @@ RSpec.describe 'Site ACL tests :', type: :request do
     it 'cant delete another user post' do
       expect { delete post_path(other_post.id) }
         .to raise_exception(ActiveRecord::RecordNotFound)
+        .and change(Post, :count).by(0)
     end
 
     it 'cant edit another user post' do

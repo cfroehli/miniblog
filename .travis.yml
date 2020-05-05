@@ -33,4 +33,5 @@ before_script:
 script:
   - bundle exec rails test
   - bundle exec rails test:system
+  - bundle exec rails db:reset
   - bundle exec rails spec
