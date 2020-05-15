@@ -73,7 +73,7 @@ group :development do
 end
 
 group :test do
-  gem 'simplecov', '~> 0.18'
+  gem 'simplecov', '~> 0.10', '< 0.18', require: false # Issue with 0.18 and cc-test-reporter
 
   gem 'capybara', '>= 2.15'
   gem 'selenium-webdriver'
