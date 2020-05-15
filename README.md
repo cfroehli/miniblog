@@ -58,12 +58,10 @@ This is just a sandbox project used while learning ruby/rails. Do not trust this
    * single container with vncserver
      ~~~bash
        export USE_SELENIUM_CONTAINERS=true
-       # edit test/application_system_test_case.rb or spec/support/capybara.rb => using: :chrom instead of :headless_chrome
-       # reduce test worker pool to 1 (or they'll fight for the only browser available)
+       # edit spec/support/capybara.rb => using: :chrome instead of :headless_chrome
        docker-compose up -d selenium-chrome-standalone
        vncviewer {selenium-chrome-standalone ip} &
-       rails test:system
-       # or rails spec
+       rails spec
      ~~~
 
    * or with a workers pool
@@ -71,14 +69,12 @@ This is just a sandbox project used while learning ruby/rails. Do not trust this
        export USE_SELENIUM_CONTAINERS=true
        docker-compose up -d selenium-hub
        docker-compose up -d --scale selenium-chrome=4 selenium-chrome
-       rails test:system
-       # or rails spec
+       rails parallel:spec
      ~~~
 
    * or local chrome
      ~~~bash
        unset USE_SELENIUM_CONTAINERS
-       # edit test/application_system_test_case.rb or spec/support/capybara.rb => driven_by using: :headless_chrome or :chrome
-       rails test:system
-       # or rails spec
+       # edit spec/support/capybara.rb => driven_by using: :headless_chrome or :chrome
+       rails spec
      ~~~

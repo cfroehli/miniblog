@@ -38,6 +38,7 @@ if ENV['USE_SELENIUM_CONTAINERS']
                  disable-gpu
                  disable-dev-shm-usage
                  headless
+                 window-size=1024x1024
                 ]
       }
     )
