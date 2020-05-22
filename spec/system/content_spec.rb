@@ -43,8 +43,8 @@ RSpec.describe 'Site content :', type: :system, js: true do
 
     it 'can write a comment' do
       fill_in 'comment-content-area', with: 'ABCDEFGHI'
-      expect { click_on 'Submit' }.to change(ActionMailer:: Base.deliveries, :count).by(1)
-      mail = ActionMailer:: Base.deliveries.last
+      expect { click_on 'Submit' }.to change(ActionMailer::Base.deliveries, :count).by(1)
+      mail = ActionMailer::Base.deliveries.last
       expect(mail.subject).to eq("Post #{user_post.id} got a new comment by #{user.username}.")
       expect(page).to have_selector('div', class: 'card-header', text: "#{user.username} said")
       expect(page).to have_selector('div', class: 'card-text', text: 'ABCDEFGHI')
