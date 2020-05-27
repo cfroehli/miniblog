@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'E-Mail notifications' do
+describe CommentNotifierMailer do
   let(:user) { build(:user) }
 
   context 'when a new comment is added' do
@@ -16,6 +16,6 @@ describe 'E-Mail notifications' do
     end
   end
 
-  #TODO add statistics mail test
+  # TODO: add statistics mail test
   # create user/posts then run with Rake::Task[].invoke
 end

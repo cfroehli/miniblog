@@ -15,8 +15,8 @@ RSpec.describe 'Site navigation :', type: :system, js: true do
     it "shows user's infocard" do
       aggregate_failures do
         [user, followed_user, other_user].each do |current_user|
-          expect(page).to have_selector('h1', text: current_user.username, visible: false)
-          expect(page).to have_selector('a', text: current_user.blog_url, visible: false)
+          expect(page).to have_selector('h1', text: current_user.username, visible: :all)
+          expect(page).to have_selector('a', text: current_user.blog_url, visible: :all)
         end
       end
     end
