@@ -11,3 +11,5 @@ plugins:
   rubocop:
     enabled: true
     channel: "rubocop-0-83"
+    config:
+      file: .codeclimate.rubocop.yml
