@@ -39,12 +39,7 @@ class User < ApplicationRecord
 
   def self.find_first_by_auth_conditions(warden_conditions)
     conditions = warden_conditions.dup
-    if (login = conditions.delete(:login))
-      where(conditions).find_by(['lower(username) = :value OR lower(email) = :value', { value: login.downcase }])
-    elsif conditions[:username].nil?
-      find_by(conditions)
-    else
-      find_by(username: conditions[:username])
-    end
+    login = conditions.delete(:login)
+    where(conditions).find_by(['lower(username) = :value OR lower(email) = :value', { value: login.downcase }])
   end
 end

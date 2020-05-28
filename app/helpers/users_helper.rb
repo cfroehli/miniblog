@@ -2,6 +2,7 @@
 
 module UsersHelper
   def user_profile(user)
-    user.profile.presence || user.profile
+    profile = user.profile
+    profile.presence || profile
   end
 end

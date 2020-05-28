@@ -19,6 +19,13 @@ RSpec.describe 'Authentication flow :', type: :system, js: true do
       expect(page).to have_current_path(root_path)
     end
 
+    it 'can login with email' do
+      fill_in 'user_login', with: user.email
+      fill_in 'user_password', with: user.password
+      click_on 'Log in'
+      expect(page).to have_current_path(root_path)
+    end
+
     it 'cant login with incorrect password' do
       fill_in 'user_login', with: user.username
       fill_in 'user_password', with: 'WrongPassword'
