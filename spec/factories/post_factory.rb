@@ -7,6 +7,8 @@ FactoryBot.define do
       user_name { user.username }
     end
 
+
+
     factory :post_with_author do
       with_author
     end

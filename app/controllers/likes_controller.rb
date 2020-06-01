@@ -7,8 +7,8 @@ class LikesController < ApplicationController
   before_action :forbid_own_post
 
   def create
-    like = current_user.likes.create(post: @liked_post)
-    flash[:success] = 'Thank you !' if like.save
+    current_user.likes.create(post: @liked_post)
+    flash[:success] = 'Thank you !'
     respond_with @liked_post
   end
 

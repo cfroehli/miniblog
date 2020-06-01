@@ -28,7 +28,6 @@ if ENV['COVERAGE']
 end
 
 require 'capybara/rspec'
-
 if ENV['USE_SELENIUM_CONTAINERS']
   Capybara.register_driver :selenium_container do |app|
     capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
@@ -86,7 +85,6 @@ RSpec.configure do |config|
   config.shared_context_metadata_behavior = :apply_to_host_groups
 
   config.silence_filter_announcements = true if ENV['TEST_ENV_NUMBER']
-
 # The settings below are suggested to provide a good initial experience
 # with RSpec, but feel free to customize to your heart's content.
 =begin

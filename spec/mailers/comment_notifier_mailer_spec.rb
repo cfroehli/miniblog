@@ -15,7 +15,4 @@ describe CommentNotifierMailer do
       expect(mail.to).to eql([post.user.email])
     end
   end
-
-  # TODO: add statistics mail test
-  # create user/posts then run with Rake::Task[].invoke
 end
