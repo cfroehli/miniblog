@@ -13,6 +13,7 @@ RSpec.describe 'Site content :', type: :system, js: true do
     visit root_path
     click_on 'Post new content'
     fill_in 'post-content-area', with: 'ABCDE'
+    page.attach_file(Rails.root.join('spec/fixtures/spintop.jpg'), make_visible: true)
     click_on 'Submit'
     expect(page).to have_text('Post was successfully created.')
     expect(page).to have_text("#{user.username} said:")

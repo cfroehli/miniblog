@@ -21,7 +21,7 @@ directories:
   "app/jobs":
     IrresponsibleModule:
       enabled: false
-  "app/mailers":
+   "app/mailers":
     IrresponsibleModule:
       enabled: false
     InstanceVariableAssumption:

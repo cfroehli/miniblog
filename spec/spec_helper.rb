@@ -28,30 +28,6 @@ if ENV['COVERAGE']
 end
 
 require 'capybara/rspec'
-if ENV['USE_SELENIUM_CONTAINERS']
-  Capybara.register_driver :selenium_container do |app|
-    capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
-      chromeOptions: {
-        args: %w[
-                 no-sandbox
-                 disable-gpu
-                 disable-dev-shm-usage
-                 headless
-                 window-size=1024x1024
-                ]
-      }
-    )
-    Capybara::Selenium::Driver.new(
-      app,
-      url: 'http://selenium-server:4444/wd/hub',
-      browser: :remote,
-      desired_capabilities: capabilities,
-    )
-  end
-  Capybara.server_host = '0.0.0.0'
-  Capybara.server_port = 9090 + ENV['TEST_ENV_NUMBER'].to_i
-  Capybara.javascript_driver = :selenium_container
-end
 
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate

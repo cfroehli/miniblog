@@ -43,7 +43,7 @@ gem 'devise', '~> 4.7.1'
 
 # Image upload
 gem 'carrierwave', '~> 2.1.0'
-gem 'cloudinary', '~> 1.13'
+gem 'cloudinary', '~> 1.14.0'
 
 # Inline css in email
 gem 'roadie', '~> 4.0'

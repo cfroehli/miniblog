@@ -7,7 +7,9 @@ FactoryBot.define do
       user_name { user.username }
     end
 
-
+    trait :with_image do
+      featured_image { File.new(Rails.root.join('spec/fixtures/spintop.jpg')) }
+    end
 
     factory :post_with_author do
       with_author
