@@ -9,11 +9,11 @@ class User < ApplicationRecord
             presence: true,
             uniqueness: { case_sensitive: false },
             length: { minimum: 1, maximum: 20 },
-            format: /\A[a-zA-Z0-9_\.]+\z/
+            format: /\A[a-zA-Z0-9_.]+\z/
   validates :profile, length: { maximum: 200 }
   validates :blog_url,
             allow_blank: true,
-            format: %r{\A(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})\z} # rubocop:disable Layout/LineLength
+            format: %r{\A(https?://(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?://(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})\z} # rubocop:disable Layout/LineLength
 
   has_many :posts, dependent: :destroy
 

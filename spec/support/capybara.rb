@@ -14,7 +14,7 @@ if ENV['USE_SELENIUM_CONTAINERS']
   Capybara.register_driver :custom_selenium_driver do |app|
     capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
       chromeOptions: {
-        args: %W[
+        args: %w[
           enable-features=NetworkService,NetworkServiceInProcess
           ignore-certificate-errors
           no-sandbox
