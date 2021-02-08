@@ -42,7 +42,7 @@ gem 'responders', '~> 3.0.0'
 gem 'devise', '~> 4.7.1'
 
 # Image upload
-gem 'carrierwave', '~> 2.1.0'
+gem 'carrierwave', '~> 2.1.1'
 gem 'cloudinary', '~> 1.14.0'
 
 # Inline css in email
